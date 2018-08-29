@@ -2,20 +2,24 @@
 # print("this is a debug message")
 
 def solution(A, B):
-    # write your code in Python 3.6
-    stack = []
-    N = len(A)
-    predator = -1
     
-    for index in range(N):
-        if B[index] == 0:
-            if A[index] > predator:
-                if stack and predator != -1:
-                    stack.pop()
-                    predator = -1
-                stack.append(A[index])
+    UPSTREAM = 0
+    # write your code in Python 3.6
+    upstreamStack = []
+    downstreamStack = []
+    
+    for element, flow in zip(A, B):
+        if flow == UPSTREAM:
+            upstreamStack.append(element)
+            
+            while downstreamStack:
+                if downstreamStack[-1] < element:
+                    downstreamStack.pop()
+                else:
+                    upstreamStack.pop()
+                    break
+        
         else:
-            if A[index] > predator:
-                predator = A[index]
-                stack.append(predator)
-    return len(stack)
+            downstreamStack.append(element)
+    
+    return len(upstreamStack) + len(downstreamStack)
