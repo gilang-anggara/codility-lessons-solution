@@ -20,8 +20,6 @@ def isNailed(A, B, C, end):
     return True
     
 def solution(A, B, C):
-    # write your code in Python 3.6
-    N = len(A)
     M = len(C)
     
     low = 1
